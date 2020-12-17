@@ -35,6 +35,10 @@ return commonGenreList.sort((genre1, genre2) => genre1.count > genre2.count ? -1
 }
 
 function getMostPopularBooks(books) {
+  let book = helperForPopularBook(books);
+  return book;
+}
+function helperForPopularBook(books){
   let popularBooksList = [];
   for (let index in books){
     const popular = books[index].borrows.length;
@@ -43,6 +47,7 @@ function getMostPopularBooks(books) {
   }
   return popularBooksList.sort((popularList1, popularList2) => popularList1.count > popularList2.count ? -1 : 1).slice(0,5);
 }
+
 
 function getMostPopularAuthors(books, authors) {
   let popularAuthorList = [];

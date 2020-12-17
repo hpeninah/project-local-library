@@ -23,7 +23,7 @@ function getBorrowersForBook(book, accounts) {
     }
   })
 })
-return accountsWhoBorrowed.slice(0,10)
+return accountsWhoBorrowed.slice(0,10);
 }
 
 module.exports = {
