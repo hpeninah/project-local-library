@@ -16,23 +16,20 @@ function booksBorrowedCount(books) {
 }
 
 function getMostCommonGenres(books) {
-let genreList = books.map((book) => book.genre);
-const commonGenreList = [];
-//nest genres into array
-let allGenres = [];
-for(let genre in genreList){
-  allGenres.push(genreList.filter(filteredBook => filteredBook === genreList[genre]));
-}
-//create object and push to return array while checking if genre exists in commonGenreList
-let existingGenreList = [];
-for(let index in allGenres){
-  if(!existingGenreList.some((bookGenre) => bookGenre === allGenres[index][0])){
-    existingGenreList.push(allGenres[index][0]);
-    commonGenreList.push({name: allGenres[index][0], count: allGenres[index].length});
+  let genreListCount = {};
+  let commonGenreList = [];
+
+  for (let i = 0; i < books.length; i++){
+    if (genreListCount[books[i]["genre"]]){
+      genreListCount[books[i]["genre"]]= genreListCount[books[i]["genre"]] + 1;
+    } else {
+      genreListCount[books[i]["genre"]] = 1;
+    }
   }
+  Object.keys(genreListCount).map((genre)=> commonGenreList.push({name:genre, count: genreListCount[genre]}))
+  return commonGenreList.sort((genre1, genre2) => genre1.count > genre2.count ? -1 : 1).splice(0,5)
 }
-return commonGenreList.sort((genre1, genre2) => genre1.count > genre2.count ? -1 : 1).splice(0,5);
-}
+
 
 function getMostPopularBooks(books) {
   let book = helperForPopularBook(books);
